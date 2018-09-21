@@ -6,17 +6,19 @@ namespace HairSalon.Controllers
 {
   public class ClientsController : Controller
   {
-    [HttpGet("/stylists/{id}/clients")]
+    [HttpGet("/clients")]
     public ActionResult Index()
     {
       List<Client> clientList = Client.GetAll();
-      return View(clientList);
+      return View("Index", clientList);
     }
 
     [HttpGet("/stylists/{id}/clients/new")]
-    public ActionResult CreateForm()
+    public ActionResult CreateForm(int stylistId)
     {
-      return View();
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Stylist stylist = Stylist.Find(stylistId);
+      return View(stylist);
     }
 
     [HttpGet("/stylists/{stylistId}/clients/{clientId}")]
