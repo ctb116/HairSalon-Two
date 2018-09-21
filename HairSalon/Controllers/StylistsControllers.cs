@@ -34,12 +34,12 @@ namespace HairSalon.Controllers
     [HttpGet("/stylists/{id}")]
     public ActionResult Details(int id)
     {
-      // Dictionary<string, object> model = new Dictionary<string, object>();
+      Dictionary<string, object> model = new Dictionary<string, object>();
       Stylist selectedStylist = Stylist.Find(id);
-      // List<MagicCard> categoryCards = selectedStylist.GetMagicCards();
-      // model.Add("category", selectedStylist);
-      // model.Add("magiccards", categoryCards);
-      return View("Details");
+      List<Client> stylistClients = selectedStylist.GetClients();
+      model.Add("stylists", selectedStylist);
+      model.Add("clients", stylistClients);
+      return View(model);
     }
   }
 }

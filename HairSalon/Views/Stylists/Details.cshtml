@@ -1,4 +1,12 @@
-<h3>List of clients this stylist has:</h3>
+<h3>Here are all the clients for this stylist</h3>
+<ol>
 
-<p><a href='/stylists'>Return to all stylists list</a></p>
-<p><a href='/'>Return to Main Page</a></p>
+@foreach (var client in @Model["clients"])
+{
+<li><a href='/stylists/@Model["stylists"].GetId()/clients/@client.GetId()'> @client.GetName()</a></li>
+}
+</ol>
+
+<p><a href='/stylists/@Model["stylists"].GetId()/clients/new'>Add a new client</a></p>
+<p><a href='/stylists'>Return to stylist list</a></p>
+<p><a href='/'>Return to Home</a></p>
