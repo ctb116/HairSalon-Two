@@ -11,7 +11,7 @@ namespace HairSalon.Models
       private string _name;
       private List<Client> _clients;
 
-      public Stylist(string newName, int newId =0)
+      public Stylist(string newName, int newId = 0)
       {
         _id = newId;
         _name = newName;
@@ -30,7 +30,7 @@ namespace HairSalon.Models
       {
         _name = newName;
       }
-      public void addClient(Client clientList)
+      public void AddClient(Client clientList)
       {
         _clients.Add(clientList);
       }
