@@ -32,6 +32,7 @@ namespace HairSalon.Controllers
     }
 
     [HttpGet("/stylists/{id}")]
+    [HttpPost("/stylists/{id}")]
     public ActionResult Details(int id)
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
@@ -42,12 +43,12 @@ namespace HairSalon.Controllers
       return View(model);
     }
 
-    [HttpPost("/clients")]
-    public ActionResult CreateClient(string newName, int stylistId)
+    [HttpPost("/stylists/{id}/clients")]
+    public ActionResult CreateClient(int stylistId, string newClientName) //from create client form
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
       Stylist foundStylist = Stylist.Find(stylistId);
-      Client newClient = new Client(newName, stylistId);
+      Client newClient = new Client(newClientName, stylistId);
       foundStylist.AddClient(newClient);
       List<Client> stylistClients = foundStylist.GetClients();
       model.Add("clients", stylistClients);

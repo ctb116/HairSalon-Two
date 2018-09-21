@@ -20,17 +20,5 @@ namespace HairSalon.Controllers
       Stylist stylist = Stylist.Find(stylistId);
       return View(stylist);
     }
-
-    [HttpGet("/stylists/{stylistId}/clients/{clientId}")]
-    public ActionResult Details(int stylistId, int id)
-    {
-       Client client = Client.Find(id);
-       Dictionary<string, object> model = new Dictionary<string, object>();
-       Stylist stylist = Stylist.Find(stylistId);
-       model.Add("clients", client);
-       model.Add("stylists", stylist);
-       return View(client);
-    }
-
   }
 }

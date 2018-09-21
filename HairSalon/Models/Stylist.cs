@@ -9,13 +9,12 @@ namespace HairSalon.Models
     {
       private int _id;
       private string _name;
-      private List<Client> _clients;
+      private List<Client> _clients = new List<Client> { };
 
       public Stylist(string newName, int newId = 0)
       {
         _id = newId;
         _name = newName;
-        _clients = new List<Client>{};
       }
 
       public int GetId()
@@ -88,11 +87,12 @@ namespace HairSalon.Models
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"SELECT * FROM stylists WHERE id = (@searchId);";
+        cmd.Parameters.AddWithValue("@searchId", id);
 
-        MySqlParameter searchId = new MySqlParameter();
-        searchId.ParameterName = "@searchId";
-        searchId.Value = id;
-        cmd.Parameters.Add(searchId);
+        // MySqlParameter searchId = new MySqlParameter();
+        // searchId.ParameterName = "@searchId";
+        // searchId.Value = id;
+        // cmd.Parameters.Add(searchId);
 
         var rdr = cmd.ExecuteReader() as MySqlDataReader;
         int StylistId = 0;
@@ -104,6 +104,7 @@ namespace HairSalon.Models
           StylistName = rdr.GetString(1);
         }
         Stylist newStylist = new Stylist(StylistName, StylistId);
+
         conn.Close();
         if (conn != null)
         {
@@ -131,11 +132,13 @@ namespace HairSalon.Models
         {
           int clientId = rdr.GetInt32(0);
           string clientName = rdr.GetString(1);
-          int clientStylistId = rdr.GetInt32(3);
+          int clientStylistId = rdr.GetInt32(2);
           Client newClient = new Client(clientName, clientStylistId, clientId);
+
           allStylistClients.Add(newClient);
         }
         conn.Close();
+
         if (conn != null)
         {
           conn.Dispose();
