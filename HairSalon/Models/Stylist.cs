@@ -9,11 +9,13 @@ namespace HairSalon.Models
     {
       private int _id;
       private string _name;
+      private List<Client> _clients;
 
       public Stylist(string newName, int newId =0)
       {
         _id = newId;
         _name = newName;
+        _clients = new List<Client>{};
       }
 
       public int GetId()
@@ -27,6 +29,10 @@ namespace HairSalon.Models
       public void SetName(string newName)
       {
         _name = newName;
+      }
+      public void addClient(Client clientList)
+      {
+        _clients.Add(clientList);
       }
 
       public void Save()
@@ -106,7 +112,36 @@ namespace HairSalon.Models
         return newStylist;
       }
 
+      public List<Client> GetClients()
+      {
+        List<Client> allStylistClients = new List<Client> {};
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM clients WHERE stylist_id = @stylist_id;";
 
+        MySqlParameter stylistId = new MySqlParameter();
+        stylistId.ParameterName = "@stylist_id";
+        stylistId.Value = this._id;
+        cmd.Parameters.Add(stylistId);
+
+
+        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        while(rdr.Read())
+        {
+          int clientId = rdr.GetInt32(0);
+          string clientName = rdr.GetString(1);
+          int clientStylistId = rdr.GetInt32(3);
+          Client newClient = new Client(clientName, clientStylistId, clientId);
+          allStylistClients.Add(newClient);
+        }
+        conn.Close();
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+        return allStylistClients;
+      }
 
     }
   }
