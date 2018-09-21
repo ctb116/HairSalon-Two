@@ -22,7 +22,7 @@ namespace HairSalon.Controllers
 
 
     [HttpPost("/stylists")]
-    public ActionResult IndexUpdate()
+    public ActionResult Create()
     {
       Stylist userInput = new Stylist(Request.Form["newStylistName"]);
       userInput.Save();
@@ -33,14 +33,14 @@ namespace HairSalon.Controllers
 
     [HttpGet("/stylists/{id}")]
     [HttpPost("/stylists/{id}")]
-    public ActionResult Details(int id)
+    public ActionResult Details(int stylistId)
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
-      Stylist selectedStylist = Stylist.Find(id);
+      Stylist selectedStylist = Stylist.Find(stylistId);
       List<Client> stylistClients = selectedStylist.GetClients();
       model.Add("stylists", selectedStylist);
       model.Add("clients", stylistClients);
-      return View(model);
+      return View("Details", model);
     }
 
     [HttpPost("/stylists/{id}/clients")]
@@ -49,6 +49,7 @@ namespace HairSalon.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       Stylist foundStylist = Stylist.Find(stylistId);
       Client newClient = new Client(newClientName, stylistId);
+      newClient.Save();
       foundStylist.AddClient(newClient);
       List<Client> stylistClients = foundStylist.GetClients();
       model.Add("clients", stylistClients);

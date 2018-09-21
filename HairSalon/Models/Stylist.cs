@@ -44,7 +44,7 @@ namespace HairSalon.Models
 
         MySqlParameter name = new MySqlParameter();
         name.ParameterName = "@StylistName";
-        name.Value = _name;
+        name.Value = this._name;
         cmd.Parameters.Add(name);
 
         cmd.ExecuteNonQuery();
@@ -87,12 +87,11 @@ namespace HairSalon.Models
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"SELECT * FROM stylists WHERE id = (@searchId);";
-        cmd.Parameters.AddWithValue("@searchId", id);
 
-        // MySqlParameter searchId = new MySqlParameter();
-        // searchId.ParameterName = "@searchId";
-        // searchId.Value = id;
-        // cmd.Parameters.Add(searchId);
+        MySqlParameter searchId = new MySqlParameter();
+        searchId.ParameterName = "@searchId";
+        searchId.Value = id;
+        cmd.Parameters.Add(searchId);
 
         var rdr = cmd.ExecuteReader() as MySqlDataReader;
         int StylistId = 0;
