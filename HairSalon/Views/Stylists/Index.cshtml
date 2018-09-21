@@ -1,10 +1,11 @@
 <h1>The Stylists who work for you</h1>
 
+<a href="/">Home</a>
 <a href="/stylists/new">Add a new stylist</a>
 
 <ul>
 @foreach (var stylist in Model)
 {
-<li>@stylist.GetName()</li>
+<li><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a></li>
 }
 </ul>
