@@ -22,28 +22,24 @@ namespace HairSalon.Models
       //   _clients.Add(clientList);
       // }
       //
-      // public void Save()
-      // {
-      //   MySqlConnection conn = DB.Connection();
-      //   conn.Open();
-      //
-      //   var cmd = conn.CreateCommand() as MySqlCommand;
-      //   cmd.CommandText = @"INSERT INTO stylists (name) VALUES (@StylistName);";
-      //
-      //   MySqlParameter name = new MySqlParameter();
-      //   name.ParameterName = "@StylistName";
-      //   name.Value = this._name;
-      //   cmd.Parameters.Add(name);
-      //
-      //   cmd.ExecuteNonQuery();
-      //   _id = (int) cmd.LastInsertedId;
-      //
-      //   conn.Close();
-      //   if (conn != null)
-      //   {
-      //     conn.Dispose();
-      //   }
-      // }
+      public void Save()
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"INSERT INTO stylists (name) VALUES (@StylistName);";
+        cmd.Parameters.AddWithValue("@StylistName", this.Name);
+
+        cmd.ExecuteNonQuery();
+        Id = (int) cmd.LastInsertedId;
+
+        conn.Close();
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+      }
 
       public static List<Stylist> GetAll()
       {
