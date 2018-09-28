@@ -67,8 +67,24 @@ namespace HairSalon.Models
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"TRUNCATE specialties;";
+        cmd.CommandText = @"DELETE FROM specialties;";
 
+        cmd.ExecuteNonQuery();
+        conn.Close();
+
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+      }
+
+      public static void Truncate()
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"TRUNCATE specialties;";
         cmd.ExecuteNonQuery();
         conn.Close();
 

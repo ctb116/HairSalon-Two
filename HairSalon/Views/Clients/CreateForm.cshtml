@@ -1,10 +1,25 @@
-<h1>Add a new client to this Stylist</h1>
+@{
+  Layout = "_Layout";
+}
 
-<form action='/stylists/@Model.GetId()/clients' method='post'>
+@using HairSalon.Models;
 
-  <input id='stylistId' name='stylistId' type='hidden' value='@Model.GetId()'>
-  <label for='newClientName'>Client name</label>
-  <input id='newClientName' name='newClientName' type='text'>
-  <button type='submit'>Add new client</button>
+<h1>Add a new client</h1>
+
+<form action='/clients' method='post'>
+
+<label for='newClientName'>Client name</label>
+<input id='newClientName' name='newClientName' type='text'>
+
+<select class="form-control" name="StylistId">
+<option class="form-control" value="">
+
+@foreach(Stylist stylist in Stylist.GetAll())
+{
+<option class="form-control" value="@stylist.Id">@stylist.Name</option>
+}
+</select>
+
+<button type='submit'>Add new client</button>
 
 </form>

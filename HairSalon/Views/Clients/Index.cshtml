@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+@using HairSalon.Models;
+
+<h1>Your Clients</h1>
+
+<a href="/">Home</a><br>
+<a href="/clients/new">Add a new client</a>
+
+
+<form action="/clients/deleteall" method="post">
+    <button type="submit">Delete all Clients</button>
+
+<br><br><br>
+
+<table class="table">
+  <tbody>
+    @foreach(var client in Model)
+    {
+      <tr>
+        <td>@client.Name</td>
+      </tr>
+    }
+  </tbody>
+</table

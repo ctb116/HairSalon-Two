@@ -128,9 +128,11 @@ namespace HairSalon.Models
         MySqlConnection conn = DB.Connection();
         conn.Open();
 
+          //remove second and third DELETE command to allow StylistTests to work
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisID;
-                            DELETE FROM stylist_client WHERE stylist_id = @thisID;";
+                            DELETE FROM stylist_client WHERE stylist_id = @thisID;
+                            DELETE FROM stylist_specialty WHERE stylist_id = @thisID;";
         cmd.Parameters.AddWithValue("@thisId", id);
 
         cmd.ExecuteNonQuery();
@@ -148,8 +150,25 @@ namespace HairSalon.Models
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"TRUNCATE stylists;
-                            DELETE FROM stylist_client";
+        cmd.CommandText = @"DELETE FROM stylists;
+                            DELETE FROM stylist_client
+                            DELETE FROM stylist_specialty;";
+        cmd.ExecuteNonQuery();
+        conn.Close();
+
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+      }
+
+      public static void Truncate()
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"TRUNCATE stylists;";
         cmd.ExecuteNonQuery();
         conn.Close();
 

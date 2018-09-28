@@ -14,7 +14,7 @@ namespace HairSalon.Tests
     }
     public void Dispose()
     {
-      Stylist.DeleteAll();
+      Stylist.Truncate();
     }
 
     [TestMethod]

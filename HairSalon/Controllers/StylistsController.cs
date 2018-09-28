@@ -52,8 +52,8 @@ namespace HairSalon.Controllers
         return RedirectToAction("Index");
     }
 
-    [HttpPost("/stylists/truncate")]
-    public ActionResult Truncate()
+    [HttpPost("/stylists/deleteall")]
+    public ActionResult DeleteAll()
     {
         Stylist.DeleteAll();
 
