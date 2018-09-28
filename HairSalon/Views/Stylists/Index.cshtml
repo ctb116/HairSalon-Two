@@ -1,11 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+@using HairSalon.Models;
+
 <h1>The Stylists who work for you</h1>
 
-<a href="/">Home</a>
+<a href="/">Home</a><br>
 <a href="/stylists/new">Add a new stylist</a>
 
-<ul>
-@foreach (var stylist in Model)
-{
-<li><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a></li>
-}
-</ul>
+<br><br><br>
+
+<table class="table">
+  <tbody>
+    @foreach(var stylist in Model)
+    {
+      <tr>
+        <td>@stylist.Name<td>
+      </tr>
+    }
+  </tbody>
+</table

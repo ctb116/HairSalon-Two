@@ -13,12 +13,12 @@ namespace HairSalon.Controllers
       return View("Index", clientList);
     }
 
-    [HttpGet("/stylists/{id}/clients/new")]
-    public ActionResult CreateForm(int stylistId)
-    {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Stylist stylist = Stylist.Find(stylistId);
-      return View(stylist);
-    }
+    // [HttpGet("/stylists/{id}/clients/new")]
+    // public ActionResult CreateForm(int stylistId)
+    // {
+    //   Dictionary<string, object> model = new Dictionary<string, object>();
+    //   Stylist stylist = Stylist.Find(stylistId);
+    //   return View(stylist);
+    // }
   }
 }

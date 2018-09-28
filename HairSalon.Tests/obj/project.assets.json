@@ -10955,11 +10955,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\cbMorrie\\Desktop\\CSharpProjectBuilder\\HairSalon.Solution\\HairSalon.Tests\\HairSalon.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\cbMorrie\\Desktop\\HairSalon.Solution\\HairSalon.Tests\\HairSalon.Tests.csproj",
       "projectName": "HairSalon.Tests",
-      "projectPath": "C:\\Users\\cbMorrie\\Desktop\\CSharpProjectBuilder\\HairSalon.Solution\\HairSalon.Tests\\HairSalon.Tests.csproj",
+      "projectPath": "C:\\Users\\cbMorrie\\Desktop\\HairSalon.Solution\\HairSalon.Tests\\HairSalon.Tests.csproj",
       "packagesPath": "C:\\Users\\cbMorrie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\cbMorrie\\Desktop\\CSharpProjectBuilder\\HairSalon.Solution\\HairSalon.Tests\\obj\\",
+      "outputPath": "C:\\Users\\cbMorrie\\Desktop\\HairSalon.Solution\\HairSalon.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\cbMorrie\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10975,8 +10975,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\cbMorrie\\Desktop\\CSharpProjectBuilder\\HairSalon.Solution\\HairSalon\\HairSalon.csproj": {
-              "projectPath": "C:\\Users\\cbMorrie\\Desktop\\CSharpProjectBuilder\\HairSalon.Solution\\HairSalon\\HairSalon.csproj"
+            "C:\\Users\\cbMorrie\\Desktop\\HairSalon.Solution\\HairSalon\\HairSalon.csproj": {
+              "projectPath": "C:\\Users\\cbMorrie\\Desktop\\HairSalon.Solution\\HairSalon\\HairSalon.csproj"
             }
           }
         }
