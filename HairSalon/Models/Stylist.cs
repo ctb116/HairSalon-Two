@@ -148,8 +148,8 @@ namespace HairSalon.Models
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"TRUNCATE stylists;";
-
+        cmd.CommandText = @"TRUNCATE stylists;
+                            DELETE FROM stylist_client";
         cmd.ExecuteNonQuery();
         conn.Close();
 

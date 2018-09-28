@@ -52,6 +52,14 @@ namespace HairSalon.Controllers
         return RedirectToAction("Index");
     }
 
+    [HttpPost("/stylists/truncate")]
+    public ActionResult Truncate()
+    {
+        Stylist.DeleteAll();
+
+        return RedirectToAction("Index");
+    }
+
     //
     // [HttpPost("/stylists/{id}/clients")]
     // public ActionResult CreateClient(int stylistId, string newClientName) //from create client form
