@@ -17,6 +17,25 @@ namespace HairSalon.Models
         Type = newType;
       }
 
+      public void Save()
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"INSERT INTO specialties (type) VALUES (@SpecialtyType);";
+        cmd.Parameters.AddWithValue("@SpecialtyType", this.Type);
+
+        cmd.ExecuteNonQuery();
+        Id = (int) cmd.LastInsertedId;
+
+        conn.Close();
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+      }
+
       public static List<Specialty> GetAll()
       {
         List<Specialty> allSpecialties = new List<Specialty> {};
@@ -40,6 +59,23 @@ namespace HairSalon.Models
           conn.Dispose();
         }
         return allSpecialties;
+      }
+
+      public static void DeleteAll()
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"TRUNCATE specialties;";
+
+        cmd.ExecuteNonQuery();
+        conn.Close();
+
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
       }
     }
   }
