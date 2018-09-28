@@ -16,5 +16,32 @@ namespace HairSalon.Tests
     {
       Stylist.DeleteAll();
     }
+
+    [TestMethod]
+    public void GetAll_ReturnStylistsInList_True()
+    {
+      Stylist newStylist = new Stylist("Barb");
+      newStylist.Save();
+
+      int result = Stylist.GetAll().Count;
+
+      Assert.AreEqual(1, result);
+    }
+
+    [TestMethod]
+    public void Delete_OneStylistInList_True()
+    {
+      Stylist firstStylist = new Stylist("Barb");
+      Stylist secondStylist = new Stylist("Narb");
+      firstStylist.Save();
+      secondStylist.Save();
+
+      Console.WriteLine(firstStylist.Id);
+
+      Stylist.Delete(firstStylist.Id);
+      int result = Stylist.GetAll().Count;
+
+      Assert.AreEqual(1, result);
+    }
   }
 }

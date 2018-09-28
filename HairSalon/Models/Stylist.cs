@@ -66,36 +66,32 @@ namespace HairSalon.Models
         return allStylists;
       }
 
-      // public static Stylist Find(int id)
-      // {
-      //   MySqlConnection conn = DB.Connection();
-      //   conn.Open();
-      //   var cmd = conn.CreateCommand() as MySqlCommand;
-      //   cmd.CommandText = @"SELECT * FROM stylists WHERE id = (@searchId);";
-      //
-      //   MySqlParameter searchId = new MySqlParameter();
-      //   searchId.ParameterName = "@searchId";
-      //   searchId.Value = id;
-      //   cmd.Parameters.Add(searchId);
-      //
-      //   var rdr = cmd.ExecuteReader() as MySqlDataReader;
-      //   int StylistId = 0;
-      //   string StylistName = "";
-      //
-      //   while(rdr.Read())
-      //   {
-      //     StylistId = rdr.GetInt32(0);
-      //     StylistName = rdr.GetString(1);
-      //   }
-      //   Stylist newStylist = new Stylist(StylistName, StylistId);
-      //
-      //   conn.Close();
-      //   if (conn != null)
-      //   {
-      //     conn.Dispose();
-      //   }
-      //   return newStylist;
-      // }
+      public static Stylist Find(int id)
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM stylists WHERE id = @searchId;";
+        cmd.Parameters.AddWithValue("@seachId", id);
+
+        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        int StylistId = 0;
+        string StylistName = "";
+
+        while(rdr.Read())
+        {
+          StylistId = rdr.GetInt32(0);
+          StylistName = rdr.GetString(1);
+        }
+        Stylist foundStylist = new Stylist(StylistName, StylistId);
+
+        conn.Close();
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+        return foundStylist;
+      }
       //
       // public List<Client> GetClients()
       // {
@@ -130,14 +126,35 @@ namespace HairSalon.Models
       //   return allStylistClients;
       // }
 
+      public static void Delete(int id)
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisId;";
+        cmd.Parameters.AddWithValue("@thisId", id);
+
+        cmd.ExecuteNonQuery();
+        conn.Close();
+
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+      }
+
       public static void DeleteAll()
       {
         MySqlConnection conn = DB.Connection();
         conn.Open();
+
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"DELETE FROM stylists;";
+        cmd.CommandText = @"TRUNCATE stylists;";
+
         cmd.ExecuteNonQuery();
         conn.Close();
+
         if (conn != null)
         {
           conn.Dispose();
