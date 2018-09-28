@@ -42,6 +42,16 @@ namespace HairSalon.Controllers
       model.Add("clients", stylistClients);
       return View("Details", model);
     }
+
+    [HttpPost("/stylists/{id}/delete")]
+    public ActionResult Delete(int id)
+    {
+        Stylist thisStylist = Stylist.Find(id);
+        Stylist.Delete(thisStylist.Id);
+
+        return RedirectToAction("Index");
+    }
+
     //
     // [HttpPost("/stylists/{id}/clients")]
     // public ActionResult CreateClient(int stylistId, string newClientName) //from create client form

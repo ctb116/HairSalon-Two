@@ -10,3 +10,9 @@
 <p><a href='/stylists/@Model["stylists"].Id/clients/new'>Add a new client</a></p>
 <p><a href='/stylists'>Return to stylist list</a></p>
 <p><a href='/'>Return to Home</a></p>
+
+
+<form action="/stylists/@Model["stylists"].Id/delete" method="post">
+    <label for="deleteStylist">Delete this Stylist</label>
+    <button type="submit">Delete</button>
+</form>
