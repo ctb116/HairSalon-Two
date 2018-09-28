@@ -100,9 +100,9 @@ namespace HairSalon.Models
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"SELECT clients.* FROM stylists
-        JOIN stylist_client ON (stylists.id = stylist_client.stylist_id)
-        JOIN clients ON (stylist_client.client_id = clients.id)
-        WHERE stylists.id = @stylistId;";
+                            JOIN stylist_client ON (stylists.id = stylist_client.stylist_id)
+                            JOIN clients ON (stylist_client.client_id = clients.id)
+                            WHERE stylists.id = @stylistId;";
         cmd.Parameters.AddWithValue("@stylistId", Id);
 
         var rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -129,7 +129,8 @@ namespace HairSalon.Models
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisId;";
+        cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisID;
+                            DELETE FROM stylist_client WHERE stylist_id = @thisID;";
         cmd.Parameters.AddWithValue("@thisId", id);
 
         cmd.ExecuteNonQuery();
