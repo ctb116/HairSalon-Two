@@ -15,7 +15,7 @@
     @foreach(var stylist in Model)
     {
       <tr>
-        <td>@stylist.Name<td>
+        <td><a href="/stylists/@stylist.Id">@stylist.Name</a></td>
       </tr>
     }
   </tbody>

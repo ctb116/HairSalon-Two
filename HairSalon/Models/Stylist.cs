@@ -71,10 +71,10 @@ namespace HairSalon.Models
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"SELECT * FROM stylists WHERE id = @searchId;";
+        cmd.CommandText = @"SELECT * FROM stylists WHERE id = @seachId;";
         cmd.Parameters.AddWithValue("@seachId", id);
 
-        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
         int StylistId = 0;
         string StylistName = "";
 
@@ -102,8 +102,8 @@ namespace HairSalon.Models
         cmd.CommandText = @"SELECT clients.* FROM stylists
         JOIN stylist_client ON (stylists.id = stylist_client.stylist_id)
         JOIN clients ON (stylist_client.client_id = clients.id)
-        WHERE stylists.id = stylistId;";
-        cmd.Parameters.AddWithValue("@stylistId");
+        WHERE stylists.id = @stylistId;";
+        cmd.Parameters.AddWithValue("@stylistId", Id);
 
         var rdr = cmd.ExecuteReader() as MySqlDataReader;
         while(rdr.Read())
