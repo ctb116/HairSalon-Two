@@ -22,10 +22,11 @@ namespace HairSalon.Controllers
     }
 
     [HttpPost("/clients")]
-    public ActionResult Create(string newClientName, string newClientBirthday)
+    public ActionResult Create(string newClientName, string newClientBirthday, int StylistId)
     {
       Client newClient = new Client(newClientName, Convert.ToDateTime(newClientBirthday));
       newClient.Save();
+      newClient.AddStylist(StylistId);
       return RedirectToAction("Index");
     }
 

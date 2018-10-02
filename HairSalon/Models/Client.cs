@@ -26,11 +26,28 @@ namespace HairSalon.Models
       var cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"INSERT INTO clients (name, birthday) VALUES (@ClientName, @ClientBirthday);";
       cmd.Parameters.AddWithValue("@ClientName", this.Name);
-      cmd.Parameters.AddWithValue("@ClientBirthday", this.Name);
+      cmd.Parameters.AddWithValue("@ClientBirthday", this.Birthday);
 
       cmd.ExecuteNonQuery();
       Id = (int) cmd.LastInsertedId;
 
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
+    public void AddStylist(int addStylist)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO stylist_client (client_id, stylist_id) VALUES (@ClientId, @StylistId);";
+      cmd.Parameters.AddWithValue("@StylistId", addStylist);
+      cmd.Parameters.AddWithValue("@ClientId", this.Id);
+
+      cmd.ExecuteNonQuery();
       conn.Close();
       if (conn != null)
       {

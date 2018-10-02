@@ -16,6 +16,18 @@ namespace HairSalon.Tests
     {
       Client.Truncate();
     }
+    [TestMethod]
+    public void Save_NewClientWithStylist_True()
+    {
+      Client newClient = new Client("Bane", Convert.ToDateTime("2000-07-21"));
+      newClient.Save();
+      
+      newClient.AddStylist(1);
+
+      int result = Client.GetAll().Count;
+
+      Assert.AreEqual(1, result);
+    }
 
     [TestMethod]
     public void GetAll_ReturnClientsInList_True()
@@ -36,7 +48,7 @@ namespace HairSalon.Tests
       Console.WriteLine(newClient.Birthday);
 
       DateTime result = Client.Find(newClient.Id).Birthday;
-      
+
 
       string testname = Client.Find(newClient.Id).Name;
       Console.WriteLine(testname);
