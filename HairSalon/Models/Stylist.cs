@@ -90,7 +90,21 @@ namespace HairSalon.Models
 
       public void Edit(string newName)
       {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"UPDATE stylists SET name = @newName WHERE id = @searchId;";
+        cmd.Parameters.AddWithValue("@searchId", Id);
+        cmd.Parameters.AddWithValue("@newName", newName);
 
+        cmd.ExecuteNonQuery();
+        Name = newName;
+
+        conn.Close();
+        if(conn != null)
+        {
+          conn.Dispose();
+        }
       }
 
       public List<Client> GetClients()
@@ -130,13 +144,13 @@ namespace HairSalon.Models
 
           //remove second and third DELETE command to allow StylistTests to work
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisID;";"
+        cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisID;";
 
 
 
 
 
-                            // 
+                            //
                             // DELETE FROM stylist_client WHERE stylist_id = @thisID;
                             // DELETE FROM stylist_specialty WHERE stylist_id = @thisID;";
         cmd.Parameters.AddWithValue("@thisId", id);

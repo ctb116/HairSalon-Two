@@ -47,16 +47,17 @@ namespace HairSalon.Tests
     [TestMethod]
     public void Edit_NameOfStylist_True()
     {
-      string firstName = "Barb";
-      Stylist firstName = new Stylist(firstName);
+      Stylist firstName = new Stylist("Barb");
       firstName.Save();
+      Console.WriteLine(firstName.Id);
+
       string secondName = "Narb";
 
       firstName.Edit(secondName);
 
-      string result = Stylist.Find(firstName.Name);
+      string result = Stylist.Find(firstName.Id).Name;
 
-      Assert.AreEqual("Narb", result)
+      Assert.AreEqual("Narb", result);
     }
   }
 }
