@@ -124,7 +124,8 @@ namespace HairSalon.Models
         {
           int clientId = rdr.GetInt32(0);
           string clientName = rdr.GetString(1);
-          Client newClient = new Client(clientName, clientId);
+          DateTime clientBirthday = rdr.GetDateTime(2);
+          Client newClient = new Client(clientName, clientBirthday, clientId);
 
           allStylistClients.Add(newClient);
         }

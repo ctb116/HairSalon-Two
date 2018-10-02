@@ -5,12 +5,18 @@
 @using HairSalon.Models;
 
 <h1>Add a new client</h1>
-
+<div class="container">
 <form action='/clients' method='post'>
 
 <label for='newClientName'>Client name</label>
 <input id='newClientName' name='newClientName' type='text'>
+<br><br>
 
+<label for='date'>Client's Birthday</label>
+<input name='date' type='date' required>
+<br><br>
+
+<label for='StylistId'>Select a Stylist</label>
 <select class="form-control" name="StylistId">
 <option class="form-control" value="">
 
@@ -19,7 +25,8 @@
 <option class="form-control" value="@stylist.Id">@stylist.Name</option>
 }
 </select>
-
+<br><br>
 <button type='submit'>Add new client</button>
 
 </form>
+</div>

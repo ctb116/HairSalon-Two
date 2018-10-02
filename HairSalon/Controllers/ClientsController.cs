@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using HairSalon.Models;
-using System.Collections.Generic;
+using HairSalon;
+using System;
 
 namespace HairSalon.Controllers
 {
@@ -10,7 +12,7 @@ namespace HairSalon.Controllers
     public ActionResult Index()
     {
       List<Client> clientList = Client.GetAll();
-      return View("Index", clientList);
+      return View(clientList);
     }
 
     [HttpGet("/clients/new")]
@@ -20,9 +22,9 @@ namespace HairSalon.Controllers
     }
 
     [HttpPost("/clients")]
-    public ActionResult Create(string newClientName)
+    public ActionResult Create(string newClientName, string newClientBirthday)
     {
-      Client newClient = new Client(newClientName);
+      Client newClient = new Client(newClientName, Convert.ToDateTime(newClientBirthday));
       newClient.Save();
 
 

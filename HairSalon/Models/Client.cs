@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System;
+using HairSalon;
 
 namespace HairSalon.Models
 {
@@ -8,11 +9,13 @@ namespace HairSalon.Models
   {
     public int Id { get; set; }
     public string Name { get; set; }
+    public DateTime Birthday { get; set; }
 
-    public Client(string newName, int newId =0)
+    public Client(string name, DateTime birthday, int newId =0)
     {
       Id = newId;
-      Name = newName;
+      Name = name;
+      Birthday = birthday;
     }
 
     public void Save()
@@ -21,8 +24,9 @@ namespace HairSalon.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO clients (name) VALUES (@ClientName);";
+      cmd.CommandText = @"INSERT INTO clients (name, birthday) VALUES (@ClientName, @ClientBirthday);";
       cmd.Parameters.AddWithValue("@ClientName", this.Name);
+      cmd.Parameters.AddWithValue("@ClientBirthday", this.Name);
 
       cmd.ExecuteNonQuery();
       Id = (int) cmd.LastInsertedId;
@@ -47,8 +51,9 @@ namespace HairSalon.Models
       {
         int clientId = rdr.GetInt32(0);
         string clientName = rdr.GetString(1);
+        DateTime clientBirthday = rdr.GetDateTime(2);
 
-        Client newClient = new Client(clientName, clientId);
+        Client newClient = new Client(clientName, clientBirthday, clientId);
         allClients.Add(newClient);
       }
       conn.Close();
@@ -58,43 +63,56 @@ namespace HairSalon.Models
       }
       return allClients;
     }
-    //
-    // public static Client Find(int id)
-    // {
-    //   MySqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //
-    //   var cmd = conn.CreateCommand() as MySqlCommand;
-    //   cmd.CommandText = @"SELECT * FROM clients WHERE id = (@thisId);";
-    //
-    //   MySqlParameter thisId = new MySqlParameter();
-    //   thisId.ParameterName = "@thisId";
-    //   thisId.Value = id;
-    //   cmd.Parameters.Add(thisId);
-    //
-    //   var rdr = cmd.ExecuteReader() as MySqlDataReader;
-    //
-    //   int ClientId = 0;
-    //   string ClientName = "";
-    //   int ClientStylistId = 0;
-    //
-    //   while (rdr.Read())
-    //   {
-    //     ClientId = rdr.GetInt32(0);
-    //     ClientName = rdr.GetString(1);
-    //     ClientStylistId = rdr.GetInt32(2);
-    //   }
-    //
-    //   Client foundClient = new Client(ClientName, ClientStylistId, ClientId);
-    //
-    //   conn.Close();
-    //   if (conn != null)
-    //   {
-    //     conn.Dispose();
-    //   }
-    //
-    //   return foundClient;
-    // }
+
+    public static Client Find(int id)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM clients WHERE id = @seachId;";
+      cmd.Parameters.AddWithValue("@seachId", id);
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      int clientId = 0;
+      string clientName = "";
+      DateTime clientBirthday = DateTime.MinValue;
+
+      while(rdr.Read())
+      {
+        clientId = rdr.GetInt32(0);
+        clientName = rdr.GetString(1);
+        clientBirthday = rdr.GetDateTime(2);
+      }
+      Client foundClient = new Client(clientName, clientBirthday, clientId);
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return foundClient;
+    }
+
+
+    public static void Delete(int id)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+        //remove second and third DELETE command to allow StylistTests to work
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM clients WHERE id = @thisID;";
+      cmd.Parameters.AddWithValue("@thisId", id);
+
+      cmd.ExecuteNonQuery();
+      conn.Close();
+
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
     public static void DeleteAll()
     {
       MySqlConnection conn = DB.Connection();
