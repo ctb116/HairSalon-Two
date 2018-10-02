@@ -20,7 +20,7 @@
     @foreach(var stylist in Model)
     {
       <tr>
-        <td><a href="/stylists/@stylist.Id">@stylist.Name</a></td>
+        <td><a href="/stylists/@stylist.Id">@stylist.Name</a>  |  <a href="/stylists/@stylist.Id/edit">Edit</a></td>
       </tr>
     }
   </tbody>

@@ -19,7 +19,6 @@ namespace HairSalon.Controllers
       return View();
     }
 
-
     [HttpPost("/stylists")]
     public ActionResult Create(string newStylistName)
     {
@@ -41,6 +40,21 @@ namespace HairSalon.Controllers
       model.Add("stylists", selectedStylist);
       model.Add("clients", stylistClients);
       return View("Details", model);
+    }
+
+    [HttpGet("stylists/{id}/edit")]
+    public ActionResult Edit(int id)
+    {
+      Stylist editStylist = Stylist.Find(id);
+      return View(editStylist);
+    }
+
+    [HttpPost("stylists/{id}/edit")]
+    public ActionResult Edit(int id, string newName)
+    {
+      Stylist editStylist = Stylist.Find(id);
+      editStylist.Edit(newName);
+      return RedirectToAction("Index");
     }
 
     [HttpPost("/stylists/{id}/delete")]
