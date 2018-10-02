@@ -11,17 +11,12 @@ namespace HairSalon.Models
       public int Id { get; set; }
       public string Name { get; set; }
 
-      public Stylist(string newName, int newId = 0)
+      public Stylist(string name, int newId = 0)
       {
         Id = newId;
-        Name = newName;
+        Name = name;
       }
 
-      // public void AddClient(Client clientList)
-      // {
-      //   _clients.Add(clientList);
-      // }
-      //
       public void Save()
       {
         MySqlConnection conn = DB.Connection();
@@ -93,6 +88,11 @@ namespace HairSalon.Models
         return foundStylist;
       }
 
+      public void Edit(string newName)
+      {
+
+      }
+
       public List<Client> GetClients()
       {
         List<Client> allStylistClients = new List<Client> {};
@@ -130,9 +130,15 @@ namespace HairSalon.Models
 
           //remove second and third DELETE command to allow StylistTests to work
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisID;
-                            DELETE FROM stylist_client WHERE stylist_id = @thisID;
-                            DELETE FROM stylist_specialty WHERE stylist_id = @thisID;";
+        cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisID;";"
+
+
+
+
+
+                            // 
+                            // DELETE FROM stylist_client WHERE stylist_id = @thisID;
+                            // DELETE FROM stylist_specialty WHERE stylist_id = @thisID;";
         cmd.Parameters.AddWithValue("@thisId", id);
 
         cmd.ExecuteNonQuery();
