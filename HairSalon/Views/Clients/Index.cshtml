@@ -10,7 +10,8 @@
 
 
 <form action="/clients/deleteall" method="post">
-    <button type="submit">Delete all Clients</button>
+    <label for="truncateClients">Delete all Clients</label>
+    <button type="submit">Remove all Clients</button>
 
 <br><br><br>
 
@@ -19,7 +20,7 @@
     @foreach(var client in Model)
     {
       <tr>
-        <td><strong>Name:</strong> @client.Name  |  <strong>Birthday:</strong> @client.Birthday</td>
+        <td><strong>Name:</strong> @client.Name  |  <strong>Birthday:</strong> @client.Birthday  |  <a href="/clients/@client.Id/edit">Edit</a></td>
       </tr>
     }
   </tbody>

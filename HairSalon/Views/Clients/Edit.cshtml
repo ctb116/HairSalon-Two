@@ -1,0 +1,19 @@
+<h1>Clients</h1>
+<hr />
+<h2>Edit item: @Model.Name</h2>
+<form action="/clients/@Model.Id/edit" method="post">
+    <label for="newName">Name:</label>
+    <input type="text" name="newName" value="@Model.Name">
+
+    <label for='date'>Client's Birthday</label>
+    <input name='date' type='date' required>
+    <button type="submit">Edit</button>
+</form>
+
+<form action="/clients/@Model.Id/delete" method="post">
+    <label for="deleteClient">Delete this Client</label>
+    <button type="submit">Delete</button>
+</form>
+
+<p><a href='/clients'>Return to client list</a></p>
+<h4><a href="/items">Return home</a></h4>

@@ -75,7 +75,7 @@ namespace HairSalon.Models
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       int clientId = 0;
       string clientName = "";
-      DateTime clientBirthday = DateTime.MinValue;
+      DateTime clientBirthday = new DateTime (1111/11/11);
 
       while(rdr.Read())
       {
@@ -91,6 +91,26 @@ namespace HairSalon.Models
         conn.Dispose();
       }
       return foundClient;
+    }
+
+    public void Edit(string newName, DateTime newBirthday)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE stylists SET (name, birthday) = (@newName, @newBirthday) WHERE id = @searchId;";
+      cmd.Parameters.AddWithValue("@searchId", Id);
+      cmd.Parameters.AddWithValue("@newName", newName);
+      cmd.Parameters.AddWithValue("@newBirthday", newBirthday);
+
+      cmd.ExecuteNonQuery();
+      Name = newName;
+
+      conn.Close();
+      if(conn != null)
+      {
+        conn.Dispose();
+      }
     }
 
 

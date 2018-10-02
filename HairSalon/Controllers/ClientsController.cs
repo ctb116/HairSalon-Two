@@ -26,18 +26,39 @@ namespace HairSalon.Controllers
     {
       Client newClient = new Client(newClientName, Convert.ToDateTime(newClientBirthday));
       newClient.Save();
-
-
-
       return RedirectToAction("Index");
     }
 
-    // [HttpGet("/stylists/{id}/clients/new")]
-    // public ActionResult CreateForm(int stylistId)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Stylist stylist = Stylist.Find(stylistId);
-    //   return View(stylist);
-    // }
+    [HttpGet("clients/{id}/edit")]
+    public ActionResult Edit(int id)
+    {
+      Client editClient = Client.Find(id);
+      return View(editClient);
+    }
+
+    [HttpPost("clients/{id}/edit")]
+    public ActionResult Edit(int id, string newName, DateTime newBirthday)
+    {
+      Client editClient = Client.Find(id);
+      editClient.Edit(newName, newBirthday);
+      return RedirectToAction("Index");
+    }
+
+    [HttpPost("/clients/{id}/delete")]
+    public ActionResult Delete(int id)
+    {
+        Client thisClient = Client.Find(id);
+        Client.Delete(thisClient.Id);
+
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost("/clients/deleteall")]
+    public ActionResult DeleteAll()
+    {
+        Client.DeleteAll();
+
+        return RedirectToAction("Index");
+    }
   }
 }
