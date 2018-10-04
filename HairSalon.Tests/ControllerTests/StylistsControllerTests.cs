@@ -7,13 +7,13 @@ using HairSalon.Models;
 namespace HairSalon.Tests
 {
   [TestClass]
-  public class HomeControllerTest
+  public class StylistsControllerTest
   {
     [TestMethod]
     public void Index_ReturnsCorrectView_True()
     {
       //Arrange
-      HomeController controller = new HomeController();
+      StylistsController controller = new StylistsController();
 
       //Act
       ActionResult indexView = controller.Index();
