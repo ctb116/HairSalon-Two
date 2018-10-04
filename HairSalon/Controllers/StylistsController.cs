@@ -38,8 +38,10 @@ namespace HairSalon.Controllers
       Stylist selectedStylist = Stylist.Find(id);
 
       List<Client> stylistClients = selectedStylist.GetClients();
+      List<Specialty> stylistSpecialty = selectedStylist.GetSpecialties();
       model.Add("stylists", selectedStylist);
       model.Add("clients", stylistClients);
+      model.Add("specialties", stylistSpecialty);
       return View("Details", model);
     }
 

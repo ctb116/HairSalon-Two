@@ -1,4 +1,4 @@
-<h3>Here are all the clients for this stylist</h3>
+<h3>All the clients for this @Model["stylists"].Name</h3>
 <ol>
 
 @foreach (var client in @Model["clients"])
@@ -6,6 +6,16 @@
 <li>@client.Name</li>
 }
 </ol>
+
+
+<h3>All the specials that this stylist knows<h3>
+@foreach (var specialties in @Model["specialties"])
+{
+<li>@specialties.Type</li>
+}
+</ol>
+
+
 
 <p><a href='/stylists/@Model["stylists"].Id/clients/new'>Add a new client</a></p>
 <p><a href='/stylists'>Return to stylist list</a></p>
