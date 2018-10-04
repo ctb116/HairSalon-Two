@@ -37,6 +37,14 @@ namespace HairSalon.Controllers
       return View(editClient);
     }
 
+    [HttpGet("/stylists/{id}/clients/new")]
+    public ActionResult AddClient(int id)
+    {
+      // Dictionary<string, object> model = new Dictionary<string, object>();
+      // Stylist stylist = Stylist.Find(id);
+      return RedirectToAction("CreateForm");
+    }
+
     [HttpPost("clients/{id}/edit")]
     public ActionResult Edit(int id, string newName, DateTime newBirthday)
     {

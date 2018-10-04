@@ -1,0 +1,10 @@
+<h1>Add a new client to this Stylist</h1>
+
+<form action='/stylists/@Model.Id' method='post'>
+
+  <input id='stylistId' name='stylistId' type='hidden' value='@Model.Id'>
+  <label for='newClientName'>Client name</label>
+  <input id='newClientName' name='newClientName' type='text'>
+  <button type='submit'>Add new client</button>
+
+</form>
