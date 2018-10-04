@@ -45,12 +45,28 @@ namespace HairSalon.Controllers
       return View("Details", model);
     }
 
+    [HttpGet("stylists/{id}/addspecial")]
+    public ActionResult AddSpecialty(int id)
+    {
+      Stylist findStylist = Stylist.Find(id);
+      return View(findStylist);
+    }
+
+    [HttpPost("stylists/{id}/addspecial")]
+    public ActionResult Special(int id, int SpecialtyId)
+    {
+      Stylist findStylist = Stylist.Find(id);
+      findStylist.AddSpecialty(SpecialtyId);
+      return RedirectToAction("Index");
+    }
+
     [HttpGet("stylists/{id}/edit")]
     public ActionResult Edit(int id)
     {
       Stylist editStylist = Stylist.Find(id);
       return View(editStylist);
     }
+
 
     [HttpPost("stylists/{id}/edit")]
     public ActionResult Edit(int id, string newName)
@@ -76,20 +92,5 @@ namespace HairSalon.Controllers
 
         return RedirectToAction("Index");
     }
-
-    //
-    // [HttpPost("/stylists/{id}/clients")]
-    // public ActionResult CreateClient(int stylistId, string newClientName) //from create client form
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Stylist foundStylist = Stylist.Find(stylistId);
-    //   Client newClient = new Client(newClientName, stylistId);
-    //   newClient.Save();
-    //   foundStylist.AddClient(newClient);
-    //   List<Client> stylistClients = foundStylist.GetClients();
-    //   model.Add("clients", stylistClients);
-    //   model.Add("stylists", foundStylist);
-    //   return View("Details", model);
-    // }
   }
 }

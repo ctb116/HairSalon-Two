@@ -1,0 +1,16 @@
+@using HairSalon.Models;
+
+<form action="/stylists/@Model.Id/addspecial" method="post">
+<label for='SpecialtyId'>Add a specialty to this stylist</label>
+<select class="form-control" name="SpecialtyId">
+<option class="form-control" value="">
+
+@foreach(Specialty specialties in Specialty.GetAll())
+{
+<option class="form-control" value="@specialties.Id">@specialties.Type</option>
+}
+</select>
+<br><br>
+<button type='submit'>Add new specialty</button>
+
+</form>

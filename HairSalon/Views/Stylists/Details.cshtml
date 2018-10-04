@@ -1,3 +1,5 @@
+@using HairSalon.Models;
+
 <h3>All the clients for this @Model["stylists"].Name</h3>
 <ol>
 
@@ -8,7 +10,7 @@
 </ol>
 
 
-<h3>All the specials that this stylist knows<h3>
+<h3>All the specials that this stylist knows</h3>
 @foreach (var specialties in @Model["specialties"])
 {
 <li>@specialties.Type</li>
@@ -16,7 +18,7 @@
 </ol>
 
 
-
+<p><a href='/stylists/@Model["stylists"].Id/addspecial'>Add a new specialty</a></p>
 <p><a href='/stylists/@Model["stylists"].Id/clients/new'>Add a new client</a></p>
 <p><a href='/stylists'>Return to stylist list</a></p>
 <p><a href='/'>Return to Home</a></p>
