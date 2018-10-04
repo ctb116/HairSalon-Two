@@ -1,0 +1,17 @@
+<h3>Here are all the stylists who have this specialty</h3>
+<ol>
+
+@foreach (var stylist in @Model["stylists"])
+{
+<li>@stylist.Name</li>
+}
+</ol>
+
+<p><a href='/specialties'>Return to specialties list</a></p>
+<p><a href='/'>Return to Home</a></p>
+
+
+<form action="/stylists/@Model["specialties"].Id/delete" method="post">
+    <label for="deleteStylist">Delete this Specialty</label>
+    <button type="submit">Delete</button>
+</form>
